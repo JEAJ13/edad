@@ -1,0 +1,65 @@
+#include <iostream>
+#include <string>
+#include <limits>
+#include <cctype>
+
+using namespace std;
+
+// Función para validar si la cadena es un número entero de máximo 2 dígitos
+bool esEdadValida(string str) {
+    // Verificar si está vacío o tiene más de 2 dígitos
+    if (str.empty() || str.length() > 2) return false;
+
+    // Verificar que cada carácter sea un número
+    for (char c : str) {
+        if (!isdigit(c)) return false;
+    }
+    return true;
+}
+
+int main() {
+    string nombre;
+    string entradaEdad;
+    char opcion;
+
+    do {
+        // 1. Solicitar el nombre
+        cout << "\nIngrese su nombre: ";
+        // Limpiar el buffer si quedó algo de la iteración anterior
+        getline(cin >> ws, nombre);
+
+        // 2. Solicitar y validar la edad
+        bool datoCorrecto = false;
+        while (!datoCorrecto) {
+            cout << "Ingrese su edad (entero de maximo 2 digitos): ";
+            cin >> entradaEdad;
+
+            if (esEdadValida(entradaEdad)) {
+                datoCorrecto = true;
+            } else {
+                cout << ">> Error: El dato es incorrecto. Ingrese un numero correcto de dos digitos." << endl;
+            }
+        }
+
+        // Convertir la entrada validada a entero
+        int edad = stoi(entradaEdad);
+
+        // 3. Determinar si es mayor de edad y mostrar en pantalla
+        cout << "\n------------------------------------------" << endl;
+        if (edad >= 18) {
+            cout << nombre << " es mayor de edad." << endl;
+        } else {
+            cout << nombre << " no es mayor de edad (es menor de edad)." << endl;
+        }
+        cout << "------------------------------------------" << endl;
+
+        // 4. Preguntar si desea ingresar otro dato
+        cout << "\n? Deseas ingresar otro dato? (s/n): ";
+        cin >> opcion;
+
+    } while (opcion == 's' || opcion == 'S');
+
+    cout << "\nGracias por usar el programa. ¡Hasta luego!" << endl;
+
+    return 0;
+}
